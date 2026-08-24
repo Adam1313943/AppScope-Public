@@ -1,6 +1,6 @@
 # AppScope
 
-**把 AdMob、App Store Connect、Google Play 的數據放在同一個畫面。資料只存在你自己的電腦。**
+**把 AdMob、App Store Connect、Google Play 的數據放在同一個畫面。你的營運資料只存在自己的電腦。**
 
 [![下載](https://img.shields.io/badge/下載-macOS-blue)](https://github.com/Adam1313943/AppScope-Public/releases/latest)
 [![下載](https://img.shields.io/badge/下載-Windows-0078D4)](https://github.com/Adam1313943/AppScope-Public/releases/latest)
@@ -46,16 +46,29 @@ AppScope 把這三個來源抓進本機的 SQLite，用一個桌面程式看完�
 </tr>
 </table>
 
-## 資料只存在你的電腦
+## 你的營運資料只存在你的電腦
 
-沒有伺服器、不需要註冊、不上傳任何數據。所有報表抓下來就進本機的 SQLite：
+不需要註冊、沒有帳號。收益、下載量、App 名稱與各平台的憑證都不會離開這台機器 ——
+所有報表抓下來就進本機的 SQLite：
 
 ```
 macOS    ~/Library/Application Support/AppScope/appscope.db
 Windows  %APPDATA%\\AppScope\\appscope.db
 ```
 
-標準 SQLite 檔，你可以用任何工具直接查詢。授權驗證是唯一的對外連線。
+標準 SQLite 檔，你可以用任何工具直接查詢。
+
+程式的對外連線只有三處：
+
+| 連線 | 內容 |
+|---|---|
+| 抓取報表 | 用**你自己的**憑證向 AdMob / App Store Connect / Google Play 取你自己的資料 |
+| 序號驗證 | 序號、Email 與裝置識別碼，用於授權與 3 台裝置上限 |
+| 匿名統計與錯誤回報 | 用來知道哪裡壞了、哪些功能有人用 |
+
+第三項**不含 App 名稱、金額、下載量或任何帳號資訊**。需要規模感時送的是數量級
+（例如「抓了 1k-10k 列」）而不是實際數字；錯誤訊息在送出前會過濾掉 Email、
+檔案路徑、bucket 名稱、Publisher ID、Vendor Number 與序號。
 
 ## 系統需求
 
